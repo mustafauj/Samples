@@ -1,14 +1,30 @@
 {
   "name": "my-rest-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "A simple test REST API with GET, POST, PUT, DELETE in TypeScript.",
+  "main": "dist/index.js", 
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js", 
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Mustafa",
+  "keywords": [
+    "api",
+    "express",
+    "typescript",
+    "test"
+  ],
+  "author": "Your Name",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^4.17.1" 
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13", 
+    "@types/node": "^16.11.7",    
+    "nodemon": "^2.0.15",    
+    "ts-node-dev": "^1.1.8",       
+    "typescript": "^4.5.2"   
   }
 }

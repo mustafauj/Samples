@@ -1,14 +1,18 @@
-
-FROM node:18-alpine
-
+FROM node:20-alpine AS base
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+FROM base AS dependencies
+COPY package.json package-lock.json* ./
+RUN npm install
 
-RUN npm install --only=production
-
+FROM dependencies AS build
 COPY . .
+RUN npm run build
 
+FROM base AS production
+ENV NODE_ENV=production
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev --ignore-scripts
+COPY --from=build /usr/src/app/dist ./dist
 EXPOSE 3000
-
-CMD [ "node", "index.js" ]
+CMD ["node", "dist/index.js"]
